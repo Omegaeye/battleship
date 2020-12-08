@@ -19,4 +19,7 @@ attr_reader :coordinate,
   def fired_upon?
     @coordinate == @ship.hit
   end
+
+  def hi
+  end
 end
