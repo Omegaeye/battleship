@@ -30,4 +30,11 @@ attr_reader :coordinate,
     end
   end
 
+  def render
+    if fired_upon? == false
+      p "."
+    else empty?
+      p "M"
+   end
+ end
 end
