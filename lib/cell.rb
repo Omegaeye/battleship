@@ -15,4 +15,8 @@ attr_reader :coordinate,
   def place_ship(cruiser)
     @ship = [] << cruiser
   end
+
+  def fired_upon?
+    @coordinate == @ship.hit
+  end
 end
