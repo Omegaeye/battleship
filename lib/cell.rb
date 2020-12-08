@@ -13,13 +13,21 @@ attr_reader :coordinate,
   end
 
   def place_ship(cruiser)
-    @ship = [] << cruiser
+    @ship = cruiser
   end
 
   def fired_upon?
-    @coordinate == @ship.hit
+    if @ship.health < @ship.length
+      true
+    else
+      false
+    end
   end
 
-  def hi
+  def fired_upon
+    if @ship != empty?
+      @ship.hit
+    end
   end
+
 end
