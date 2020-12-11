@@ -69,14 +69,9 @@ class Board
     coordinates.all? {|coordinate| valid_coordinate?(coordinate)}
   end
 
-  def ship_placement?(ship, coordinates)
-    @ship.coordinates_equal_length
-  end
-
   def valid_placement?(ship, coordinates)
     cell_empty(coordinates)                    &&
     consecutive_placement(coordinates)         &&
-    coordinates_equal_length(ship, coordinates)&&
     ship.length == coordinates.length          &&
     ship_coordinates_valid?(coordinates)
   end
