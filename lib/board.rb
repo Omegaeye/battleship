@@ -1,4 +1,4 @@
-
+require './lib/cell'
 
 class Board
 
@@ -42,6 +42,35 @@ class Board
   def vertical?(ship, coordinates)
       @cor = coordinates.map{|coordinate|coordinate[0]}
       integer = @cor.map(&:ord)
-      integer.each_cons(2.all?{|a,b| b == a})
+      integer.each_cons(2).all?{|a,b| b == a}
+  end
+
+  def cell_empty(ship, coordinates)
+
+  end
+
+  def consecutive_placement(ship,coordinates)
+  return true if horizontal?(ship,coordinates) == true || vertical?(ship, coordinates) == true
+    false
+  end
+
+  # def ship_placement?(ship, coordinates)
+  #   @ship.coordinates_equal_length
+  # end
+
+  def valid_placement?(ship, coordinates)
+    return true if consecutive_placement(ship, coordinates) && coordinates_equal_length(ship, coordinates) && cells.empty?
+      false
+
+    #
+    #  if  consecutive_placement(ship, coordinates)
+    #    true
+    #   elsif coordinates_equal_length(ship, coordinates)
+    #     true
+    #   elsif  cell.empty?
+    #    true
+    #  else
+    #    false
+    # end
   end
 end
