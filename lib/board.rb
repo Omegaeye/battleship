@@ -1,4 +1,4 @@
-require '.lib/cell'
+
 
 class Board
 
@@ -33,13 +33,15 @@ class Board
     ship.length == coordinates.length
   end
 
-  def consecutive_coordinates(ship, coordinates)
+  def horizontal?(ship, coordinates)
     @cor = coordinates.map{|coordinate|coordinate[1]}
-    integer = cor.map(&:to_i)
+    integer = @cor.map(&:to_i)
     integer.each_cons(2).all?{|a,b| b == a + 1}
   end
 
-
-
-
+  def vertical?(ship, coordinates)
+      @cor = coordinates.map{|coordinate|coordinate[0]}
+      integer = @cor.map(&:ord)
+      integer.each_cons(2.all?{|a,b| b == a})
+  end
 end
