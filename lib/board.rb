@@ -68,9 +68,10 @@ class Board
   def ship_coordinates_valid?(coordinates)
     coordinates.all? {|coordinate| valid_coordinate?(coordinate)}
   end
-  # def ship_placement?(ship, coordinates)
-  #   @ship.coordinates_equal_length
-  # end
+
+  def ship_placement?(ship, coordinates)
+    @ship.coordinates_equal_length
+  end
 
   def valid_placement?(ship, coordinates)
     cell_empty(coordinates)                    &&
@@ -78,5 +79,11 @@ class Board
     coordinates_equal_length(ship, coordinates)&&
     ship.length == coordinates.length          &&
     ship_coordinates_valid?(coordinates)
+  end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.map{|coord| @cells[coord].place_ship(ship)}
+    end
   end
 end
