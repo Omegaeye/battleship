@@ -33,44 +33,50 @@ class Board
     ship.length == coordinates.length
   end
 
-  def horizontal?(ship, coordinates)
-    @cor = coordinates.map{|coordinate|coordinate[1]}
-    integer = @cor.map(&:to_i)
-    integer.each_cons(2).all?{|a,b| b == a + 1}
+  def all_numbers_alike(coordinates)
+    coordinates.map {|coordinate| coordinate[1]}.uniq.length == 1
   end
 
-  def vertical?(ship, coordinates)
-      @cor = coordinates.map{|coordinate|coordinate[0]}
-      integer = @cor.map(&:ord)
-      integer.each_cons(2).all?{|a,b| b == a}
+  def all_letters_alike(coordinates)
+    coordinates.map {|coordinate| coordinate[0]}.uniq.length == 1
   end
 
-  def cell_empty(ship, coordinates)
-
+  def horizontal?(coordinates)
+    @hor = coordinates.map{|coordinate|coordinate[1]}.map(&:to_i)
+    @hor.each_cons(2).all?{|a,b| b == a + 1}
   end
 
-  def consecutive_placement(ship,coordinates)
-  return true if horizontal?(ship,coordinates) == true || vertical?(ship, coordinates) == true
-    false
+  def vertical?(coordinates)
+      @ver = coordinates.map{|coordinate|coordinate[0]}.map(&:ord)
+      @ver.each_cons(2).all?{|a,b| b == a + 1}
   end
 
+  def cell_empty(coordinates)
+    coordinates.all? {|cell| @cells[cell].empty?}
+  end
+
+  def consecutive_placement(coordinates)
+    if all_letters_alike(coordinates)
+      horizontal?(coordinates)
+    elsif all_numbers_alike(coordinates)
+      vertical?(coordinates)
+    else
+      false
+    end
+  end
+
+  def ship_coordinates_valid?(coordinates)
+    coordinates.all? {|coordinate| valid_coordinate?(coordinate)}
+  end
   # def ship_placement?(ship, coordinates)
   #   @ship.coordinates_equal_length
   # end
 
   def valid_placement?(ship, coordinates)
-    return true if consecutive_placement(ship, coordinates) && coordinates_equal_length(ship, coordinates) && cells.empty?
-      false
-
-    #
-    #  if  consecutive_placement(ship, coordinates)
-    #    true
-    #   elsif coordinates_equal_length(ship, coordinates)
-    #     true
-    #   elsif  cell.empty?
-    #    true
-    #  else
-    #    false
-    # end
+    cell_empty(coordinates)                    &&
+    consecutive_placement(coordinates)         &&
+    coordinates_equal_length(ship, coordinates)&&
+    ship.length == coordinates.length          &&
+    ship_coordinates_valid?(coordinates)
   end
 end
