@@ -32,21 +32,56 @@ class BoardTest < Minitest::Test
       assert_equal false, board.coordinates_equal_length(submarine, ["A2", "A3", "A4"])
     end
 
+    def test_all_numbers_alike
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      assert_equal false,  board.all_numbers_alike(["A1", "A2", "A4"])
+      assert_equal true,  board.all_numbers_alike(["A1", "C1"])
+      assert_equal false,  board.all_numbers_alike(["A3", "A2", "A1"])
+    end
+
+    def test_all_letters_alike
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      assert_equal true,  board.all_letters_alike(["A1", "A2", "A4"])
+      assert_equal false,  board.all_letters_alike(["A1", "C1"])
+      assert_equal true,  board.all_letters_alike(["A3", "A2", "A1"])
+    end
+
     def test_horizontal?
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
-      assert_equal false,  board.horizontal?(cruiser, ["A1", "A2", "A4"])
-      assert_equal false,  board.horizontal?(submarine, ["A1", "C1"])
-      assert_equal false,  board.horizontal?(cruiser, ["A3", "A2", "A1"])
+      assert_equal false,  board.horizontal?(["A1", "A2", "A4"])
+      assert_equal false,  board.horizontal?(["A1", "C1"])
+      assert_equal true,  board.horizontal?(["A1", "A2", "A3"])
+      assert_equal false,  board.horizontal?(["B1", "C1", "D1"])
     end
 
     def vertical?
       board = Board.new
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2)
-      assert_equal false,  board.vertical?(submarine, ["C1", "B1"])
-      assert_equal true,   board.vertical?(cruiser, ["A1", "B1", "C1"])
+      assert_equal false,  board.vertical?(["C1", "B1"])
+      assert_equal true,   board.vertical?(["A1", "B1", "C1"])
+      assert_equal true,  board.vertical?(["B1", "C1", "D1"])
+    end
+
+    def test_cell_empty
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      assert_equal true, board.cell_empty(["A1", "A2", "A4"])
+    end
+
+    def test_consecutive_placement
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+      assert_equal false, board.consecutive_placement(["A1", "A2", "A4"])
+      assert_equal true,  board.consecutive_placement(["B1", "C1", "D1"])
     end
 
     def test_valid_placement?
