@@ -17,8 +17,8 @@ class GameTest < Minitest::Test
     game = Game.new
     cpu_board = Board.new
     cpu_ships = {"Cruiser" => Ship.new("Cruiser", 3),
-                     "Submarine" => Ship.new("Submarine", 2)}
-    require "pry"; binding.pry
+                 "Submarine" => Ship.new("Submarine", 2)}
+
   end
 
 end

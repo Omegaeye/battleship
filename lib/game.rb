@@ -23,6 +23,7 @@ class Game
   def cpu_random_coord
     @cpu_board.cells.keys.shuffle[0..2]
   end
+
   def cpu_cruiser_place
     @cpu_board.place(@cpu_ships["Cruiser"], cpu_random_coord)
   end
@@ -30,17 +31,17 @@ class Game
   def cpu_cruiser_placement
     cpu_random_coord
     if @cpu_board.valid_placement?(@cpu_ships["Cruiser"], cpu_random_coord)
-      cpu_cruiser_place
+      true
     else
-      cpu_cruiser_placement
+      false
     end
   end
-  #
+
   def cpu_ships_placement
-    cpu_cruiser_placement
-    cpu_submarine_placement
+      cpu_cruiser_placement
+      cpu_submarine_placement
   end
-  #
+
   def user_prompt
     gets.chomp.downcase
   end
@@ -60,4 +61,4 @@ class Game
         start
       end
   end
-end
+# end
