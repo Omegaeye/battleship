@@ -14,10 +14,10 @@ class GameTest < Minitest::Test
   end
 
   def test_cpu_cruiser
-    board = Board.new
     game = Game.new
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cpu_board = Board.new
+    cpu_ships = {"Cruiser" => Ship.new("Cruiser", 3),
+                     "Submarine" => Ship.new("Submarine", 2)}
     require "pry"; binding.pry
   end
 

@@ -14,33 +14,39 @@ class Game
     @player_board = Board.new
     @cpu_board = Board.new
     @player_ships = {"Cruiser" => Ship.new("Cruiser", 3),
-                     "Submarine" => Ship.new("Submarine", 2)
+                   "Submarine" => Ship.new("Submarine", 2)
     }
-    @cpu_ships = {"Cruiser" => Ship.new("Cruiser", 3),
-                     "Submarine" => Ship.new("Submarine", 2)
+    @cpu_ships =    {"Cruiser" => Ship.new("Cruiser", 3),
+                   "Submarine" => Ship.new("Submarine", 2)
     }
   end
-
-  def cpu_cruiser
-    @coord_randomize = @computer_board.cells.keys.shuffle[0..2]
-    @computer_board.place(@computer_ships["Cruiser"], @coord_randomize)
-    
+  def cpu_random_coord
+    @cpu_board.cells.keys.shuffle[0..2]
+  end
+  def cpu_cruiser_place
+    @cpu_board.place(@cpu_ships["Cruiser"], cpu_random_coord)
   end
 
-  def cpu_ships_placement
-    if valid_placement?(@computer_ships["Cruiser"], @coord_randomize)
-     cpu_cruiser
+  def cpu_cruiser_placement
+    cpu_random_coord
+    if @cpu_board.valid_placement?(@cpu_ships["Cruiser"], cpu_random_coord)
+      cpu_cruiser_place
     else
-
-    # cpu_submarine
+      cpu_cruiser_placement
+    end
   end
-
+  #
+  def cpu_ships_placement
+    cpu_cruiser_placement
+    cpu_submarine_placement
+  end
+  #
   def user_prompt
     gets.chomp.downcase
   end
 
   def start
-    #@gamemessage.intro
+    #@gamemessage.welcome
     user_prompt
       if user_prompt == "p"
         cpu_ships_placement
@@ -54,20 +60,4 @@ class Game
         start
       end
   end
-
-
-
-
-end
-
-
-
-
-
-
-
-
-
-
-
 end
