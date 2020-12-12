@@ -34,11 +34,13 @@ class Board
   end
 
   def all_numbers_alike(coordinates)
-    coordinates.map {|coordinate| coordinate[1]}.uniq.length == 1
+    @hor = coordinates.map{|coordinate|coordinate[1]}.map(&:to_i)
+    @hor.each_cons(2).all?{|a,b| b == a}
   end
 
   def all_letters_alike(coordinates)
-    coordinates.map {|coordinate| coordinate[0]}.uniq.length == 1
+    @ver = coordinates.map{|coordinate|coordinate[0]}.map(&:ord)
+    @ver.each_cons(2).all?{|a,b| b == a}
   end
 
   def horizontal?(coordinates)
@@ -47,8 +49,8 @@ class Board
   end
 
   def vertical?(coordinates)
-      @ver = coordinates.map{|coordinate|coordinate[0]}.map(&:ord)
-      @ver.each_cons(2).all?{|a,b| b == a + 1}
+    @ver = coordinates.map{|coordinate|coordinate[0]}.map(&:ord)
+    @ver.each_cons(2).all?{|a,b| b == a + 1}
   end
 
   def cell_empty(coordinates)
@@ -86,7 +88,7 @@ class Board
     if option == true
       "1 2 3 4 \nA #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)} \nB #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)} \nC #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)} \nD #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
     else
-    "1 2 3 4 \nA #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \nB #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \nC #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \nD #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+      "1 2 3 4 \nA #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \nB #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \nC #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \nD #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
     end
   end
 
