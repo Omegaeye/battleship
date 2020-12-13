@@ -1,7 +1,7 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
-# require './lib/game_message'
+require './lib/game_message'
 
 class Game
 
@@ -11,30 +11,29 @@ class Game
               :cpu_ships
 
   def initialize
-    @player_board = Board.new
-    @cpu_board = Board.new
-    @player_ships = {"Cruiser" => Ship.new("Cruiser", 3),
-                   "Submarine" => Ship.new("Submarine", 2)
-    }
-    @cpu_ships =    {"Cruiser" => Ship.new("Cruiser", 3),
-                   "Submarine" => Ship.new("Submarine", 2)
-    }
-  end
-  def cpu_random_coord
-    @cpu_board.cells.keys.shuffle[0..2]
+    @player_board   = Board.new
+    @cpu_board      = Board.new
+    @player_cruiser = Ship.new("Cruiser", 3),
+    @player_sub     = Ship.new("Submarine", 2)
+    @cpu_cruiser    = Ship.new("Cruiser", 3),
+    @cpu_sub        = Ship.new("Submarine", 2)
   end
 
-  def cpu_cruiser_place
-    @cpu_board.place(@cpu_ships["Cruiser"], cpu_random_coord)
+  def cpu_random_coord(ship)
+    @cpu_board.cells.keys.sample(ship.length)
   end
 
-  def cpu_cruiser_placement
-    cpu_random_coord
-    if @cpu_board.valid_placement?(@cpu_ships["Cruiser"], cpu_random_coord)
-      true
-    else
-      false
+  def cpu_random_coordinates(ship)
+    random_cells = []
+    until @cpu_board.valid_placement?(ship, random_cells) do
+    random_cells = cpu_random_coord(ship)
     end
+    random_cells
+  end
+
+  def place_cpu_ships(ship)
+    rand_coord = cpu_random_coordinates(ship)
+    @cpu_board.place(ship, rand_coord)
   end
 
   def cpu_ships_placement
@@ -61,4 +60,4 @@ class Game
         start
       end
   end
-# end
+end
