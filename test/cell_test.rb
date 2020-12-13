@@ -22,6 +22,7 @@ class CellTest < Minitest::Test
 
   def test_empty?
     cell = Cell.new("B4")
+
     assert_equal true, cell.empty?
   end
 
@@ -29,8 +30,8 @@ class CellTest < Minitest::Test
     cell    = Cell.new("B4")
     cruiser = Ship.new("Cruiser", 3)
     cell.place_ship(cruiser)
-    assert_equal cruiser, cell.ship
 
+    assert_equal cruiser, cell.ship
     assert_equal false, cell.empty?
   end
 
@@ -60,6 +61,7 @@ class CellTest < Minitest::Test
     assert_equal "M", cell_1.render
     cell_2  = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
+
     cell_2.place_ship(cruiser)
     assert_equal ".", cell_2.render
     assert_equal "S", cell_2.render(true)

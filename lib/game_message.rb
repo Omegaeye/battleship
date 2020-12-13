@@ -4,12 +4,13 @@ class Messages
     puts "*** Now Entering BATTLESHIP.***\n Enter p to play. Enter q to quit"
   end
 
+  def player_quits
+    puts "You have quit the game. Goodbye"
+  end
   def computer_place_ships
     puts "I have laid out my ships on the the battlefield."
   end
 
-  # def display_board
-  # end
 
   def user_place_ships
     puts "You now need to lay out your two ships.\n The Cruiser is three units long.\n The Submarine is two units long"
