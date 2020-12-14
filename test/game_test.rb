@@ -3,7 +3,7 @@ require 'minitest/pride'
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
-# require './lib/game_message'
+require './lib/game_message'
 require './lib/game'
 
 class GameTest < Minitest::Test
@@ -14,13 +14,14 @@ class GameTest < Minitest::Test
   end
 
   def test_cpu_cruiser
-    game    = Game.new
+    game      = Game.new
     cpu_board = Board.new
-    cruiser = Ship.new("Cruiser", 3)
-    sub     = Ship.new("Submarine", 2)
+    cruiser   = Ship.new("Cruiser", 3)
+    sub       = Ship.new("Submarine", 2)
     game.place_cpu_ships(cruiser)
-    puts cpu_board.render
+    game.start
     assert_equal true, game.cpu_random_coordinates(cruiser)
   end
+
 
 end
