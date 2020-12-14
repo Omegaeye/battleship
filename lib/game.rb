@@ -86,8 +86,21 @@ class Game
     puts @player_board.render(true)
     @message.player_shot
     player_shoot
+    @message.invalid_shot #if shot is not a valid coordinate
+    computer_shoot #must be random_cells
+    @message.shot_fired_player #must tell what location was shot and if it is a Hit, Miss, or ship sunk
+    @message.shot_fired_computer  #must tell what location was shot and if it is a Hit, Miss, or ship sunk
+    @message.display_computer_board
+    puts @cpu_board.render
+    @message.display_player_board
+    puts @player_board.render(true)
+    #both boards must show updated info H, M,X with player board still showing ships
   end
 
+#Winner once a someone wins the computer must recognise who won.
+# if player wins @message.player_wins
+#else compuer wins @message.computer_wins
+#then return to @message.welcome
 
   def start
     @message.welcome
