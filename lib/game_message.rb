@@ -41,10 +41,12 @@ class Messages
 
   def player_shot
     puts "Enter the coordinate for your shot."
+    print ">"
   end
 
   def invalid_shot
     puts "That is an invalid shot. Try Again:"
+    print ">"
   end
 
   #computer shoots, must be random and cannot repeat
