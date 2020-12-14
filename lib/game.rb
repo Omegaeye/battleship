@@ -7,16 +7,19 @@ class Game
 
   attr_reader :player_board,
               :cpu_board,
-              :player_ships,
+              :player_ships
+              :cpu_cruiser,
+              :cpu_sub,
               :cpu_ships,
               :message
+
 
   def initialize
     @player_board   = Board.new
     @cpu_board      = Board.new
-    @player_cruiser = Ship.new("Cruiser", 3),
+    @player_cruiser = Ship.new("Cruiser", 3)
     @player_sub     = Ship.new("Submarine", 2)
-    @cpu_cruiser    = Ship.new("Cruiser", 3),
+    @cpu_cruiser    = Ship.new("Cruiser", 3)
     @cpu_sub        = Ship.new("Submarine", 2)
     @message        = Messages.new
   end
@@ -39,13 +42,25 @@ class Game
   end
 
   def cpu_ships_placement
-      cpu_cruiser_placement
-      cpu_submarine_placement
+      @cpu_board.place_cpu_ships(@cpu_cruiser)
+      @cpu_board.place_cpu_ships(@cpu_sub)
   end
 
   def user_prompt
     gets.chomp.downcase
   end
+
+  def player_place_ship
+    #@gamemessage.user_place_ships
+    user_enter_coord = user_prompt.split(" ").length == 3
+      if user_enter_coord && @player_board.valid_coordinate?(ship, user_enter_coord)
+          place_user_ship(cruiser, user_enter_coord)
+      else
+        #@gamemessage.invalid_coordinates
+        player_place_ship
+      end
+  end
+
 
 
   def start
@@ -53,6 +68,8 @@ class Game
       user_prompt
       if user_prompt == "p"
         cpu_ships_placement
+        player_place_ship
+
           @message.computer_place_ships
           @message.user_place_ships
           @player_board.render(true)
