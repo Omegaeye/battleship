@@ -15,76 +15,85 @@ class Game
 
 
   def initialize
-    @player_board   = Board.new
-    @cpu_board      = Board.new
-    @player_cruiser = Ship.new("Cruiser", 3)
-    @player_sub     = Ship.new("Submarine", 2)
-    @cpu_cruiser    = Ship.new("Cruiser", 3)
-    @cpu_sub        = Ship.new("Submarine", 2)
-    @message        = Messages.new
+     @player_board   = Board.new
+     @cpu_board      = Board.new
+     @player_cruiser = Ship.new("Cruiser", 3)
+     @player_sub     = Ship.new("Submarine", 2)
+     @cpu_cruiser    = Ship.new("Cruiser", 3)
+     @cpu_sub        = Ship.new("Submarine", 2)
+     @message        = Messages.new
   end
 
   def cpu_random_coord(ship)
-    @cpu_board.cells.keys.sample(ship.length)
+     @cpu_board.cells.keys.sample(ship.length)
   end
 
   def cpu_random_coordinates(ship)
-    random_cells = []
+      random_cells = []
     until @cpu_board.valid_placement?(ship, random_cells) do
-    random_cells = cpu_random_coord(ship)
+      random_cells = cpu_random_coord(ship)
     end
-    random_cells
+      random_cells
   end
 
   def place_cpu_ships
-    cpu_random_coordinates(@cpu_cruiser)
-    @cpu_board.place(@cpu_cruiser, cpu_random_coordinates(@cpu_cruiser))
-    cpu_random_coordinates(@cpu_sub)
-    @cpu_board.place(@cpu_sub, cpu_random_coordinates(@cpu_sub))
+      cpu_random_coordinates(@cpu_cruiser)
+      @cpu_board.place(@cpu_cruiser, cpu_random_coordinates(@cpu_cruiser))
+      cpu_random_coordinates(@cpu_sub)
+      @cpu_board.place(@cpu_sub, cpu_random_coordinates(@cpu_sub))
   end
 
-  def user_prompt
-    gets.chomp.downcase
+  def player_place_cruiser
+      puts @player_board.render(true)
+      user_prompt = gets.chomp.upcase.split(" ")
+    if @player_board.valid_placement?(@player_cruiser, user_prompt)
+      @player_board.place(@player_cruiser, user_prompt)
+    else
+      @message.invalid_coordinates
+      player_place_cruiser
+    end
   end
 
-  def player_place_ship
-    #@gamemessage.user_place_ships
-    user_enter_coord = user_prompt.split(" ").length == 3
-      if user_enter_coord && @player_board.valid_coordinate?(ship, user_enter_coord)
-          place_user_ship(cruiser, user_enter_coord)
-      else
-        #@gamemessage.invalid_coordinates
-        player_place_ship
-      end
+  def player_place_sub
+      puts @player_board.render(true)
+      user_prompt = gets.chomp.upcase.split(" ")
+    if @player_board.valid_placement?(@player_sub, user_prompt)
+      @player_board.place(@player_sub, user_prompt)
+      puts @player_board.render(true)
+    else
+      @message.invalid_coordinates
+      player_place_sub
+    end
   end
 
+  def turn
+    @message.display_player_board
+    puts @cpu_board.render
+    @message.display_computer_board
+    puts @player_board.render(true)
+    @message.player_shot
+    gets.chomp.upcase
+  end
 
 
   def start
     @message.welcome
-      user_prompt
-      if user_prompt == "p"
+      user_prompt = gets.chomp.downcase
+    if user_prompt == "p"
         place_cpu_ships
-        player_place_ship
-          @message.computer_place_ships
-          @message.user_place_ships
-          @player_board.render(true)
-          @message.cruiser_coordinates
-          #player place cruiser
-          p @player_board.render(true)
-          @message.submarine_coordinates
-          #player place submarine
-          @message.display_computer_board
-          p @cpu_board.render
-          @message.display_player_board
-          p @player_board.render(true)
+        @message.computer_place_ships
+        @message.user_place_ships
+        @message.cruiser_coordinates
+        player_place_cruiser
+        @message.submarine_coordinates
+        player_place_sub
         #turn
-      elsif user_prompt == "q"
-        @message.quit
+    elsif user_prompt == "q"
+        @message.player_quits
         exit
-      else
+    else
         @message.invalid_coordinates
-      end
+    end
   end
 
 end
