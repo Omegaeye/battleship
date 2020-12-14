@@ -20,7 +20,11 @@ class GameTest < Minitest::Test
     cruiser   = Ship.new("Cruiser", 3)
     sub       = Ship.new("Submarine", 2)
     game.place_cpu_ships(cruiser)
+
+    game.start
+=======
     puts cpu_board.render
+
 
     assert_equal true, game.cpu_random_coordinates(cruiser)
   end
@@ -30,6 +34,7 @@ def test_player_ship_placement
   cruiser   = Ship.new("Cruiser", 3)
   sub       = Ship.new("Submarine", 2)
   game.start
+
 
 end
 end
