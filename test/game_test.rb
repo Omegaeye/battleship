@@ -22,7 +22,6 @@ class GameTest < Minitest::Test
     game.place_cpu_ships(cruiser)
 
     game.start
-=======
     puts cpu_board.render
 
 

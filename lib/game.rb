@@ -7,7 +7,7 @@ class Game
 
   attr_reader :player_board,
               :cpu_board,
-              :player_ships
+              :player_ships,
               :cpu_cruiser,
               :cpu_sub,
               :cpu_ships,
@@ -36,14 +36,11 @@ class Game
     random_cells
   end
 
-  def place_cpu_ships(ship)
-    rand_coord = cpu_random_coordinates(ship)
-    @cpu_board.place(ship, rand_coord)
-  end
-
-  def cpu_ships_placement
-      @cpu_board.place_cpu_ships(@cpu_cruiser)
-      @cpu_board.place_cpu_ships(@cpu_sub)
+  def place_cpu_ships
+    cpu_random_coordinates(@cpu_cruiser)
+    @cpu_board.place(@cpu_cruiser, cpu_random_coordinates(@cpu_cruiser))
+    cpu_random_coordinates(@cpu_sub)
+    @cpu_board.place(@cpu_sub, cpu_random_coordinates(@cpu_sub))
   end
 
   def user_prompt
@@ -67,9 +64,8 @@ class Game
     @message.welcome
       user_prompt
       if user_prompt == "p"
-        cpu_ships_placement
+        place_cpu_ships
         player_place_ship
-
           @message.computer_place_ships
           @message.user_place_ships
           @player_board.render(true)
@@ -88,7 +84,7 @@ class Game
         exit
       else
         @message.invalid_coordinates
-    end
+      end
   end
 
 end
