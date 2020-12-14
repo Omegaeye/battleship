@@ -24,5 +24,12 @@ class GameTest < Minitest::Test
 
     assert_equal true, game.cpu_random_coordinates(cruiser)
   end
+def test_player_ship_placement
+  game      = Game.new
+  cpu_board = Board.new
+  cruiser   = Ship.new("Cruiser", 3)
+  sub       = Ship.new("Submarine", 2)
+  game.start
 
+end
 end
