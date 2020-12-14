@@ -66,13 +66,26 @@ class Game
     end
   end
 
+  def player_shot_logic
+
+  end
+
+  def player_shoot
+    shot = gets.chomp.upcase
+    until @cpu_board.valid_coordinate?(shot) && @cpu_board.cells[shot].fired_upon? == false
+      @message.invalid_shot
+      player_shoot
+    end
+    player_shot_logic
+  end
+
   def turn
-    @message.display_player_board
-    puts @cpu_board.render
     @message.display_computer_board
+    puts @cpu_board.render
+    @message.display_player_board
     puts @player_board.render(true)
     @message.player_shot
-    gets.chomp.upcase
+    player_shoot
   end
 
 
@@ -87,7 +100,7 @@ class Game
         player_place_cruiser
         @message.submarine_coordinates
         player_place_sub
-        #turn
+        turn
     elsif user_prompt == "q"
         @message.player_quits
         exit
