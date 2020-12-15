@@ -73,6 +73,7 @@ class Game
       puts "Your shot on #{shot} was a miss."
     elsif @cpu_board.cells[shot].ship_destroyed
       "X"
+      puts "Your shot on #{shot} has destroyed my ship."
     elsif @cpu_board.cells[shot].ship_damage
       "H"
       puts "Your shot on #{shot} was a hit."
@@ -91,6 +92,41 @@ class Game
     end
   end
 
+  def cpu_shot
+    shot2 = @player_board.cells.keys.sample(1).join
+    if @player_board.valid_coordinate?(shot2) == true
+      cpu_shot_logic(shot2)
+    end
+  end
+
+  def cpu_shot_logic(shot2)
+    @player_board.cells[shot2].fire_upon
+     if @player_board.cells[shot2].shot_miss
+      "M"
+      puts "My shot on #{shot2} was a miss."
+    elsif @player_board.cells[shot2].ship_destroyed
+      "X"
+       puts "My shot on #{shot} has destroyed your ship."
+    elsif @player_board.cells[shot2].ship_damage
+      "H"
+      puts "My shot on #{shot2} was a hit."
+    else
+       "."
+    end
+  end
+
+  def player_wins
+    if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+    @message.player_wins
+   end
+  end
+
+  def cpu_wins
+    if @player_cruiser.sunk? && @player_submarine.sunk?
+     @message.computer_wins
+    end
+  end
+
   def turn
     @message.display_computer_board
     puts @cpu_board.render
@@ -98,15 +134,15 @@ class Game
     puts @player_board.render(true)
     @message.player_shot
     player_shoot
+    player_wins
+    @message.display_computer_board
+    puts @cpu_board.render
+    @message.display_player_board
+    puts @player_board.render(true)
+    cpu_shot
+    cpu_wins
+    turn
 
-    # computer_shoot #must be random_cells
-    # @message.shot_fired_player #must tell what location was shot and if it is a Hit, Miss, or ship sunk
-    # @message.shot_fired_computer  #must tell what location was shot and if it is a Hit, Miss, or ship sunk
-    # @message.display_computer_board
-    # puts @cpu_board.render
-    # @message.display_player_board
-    # puts @player_board.render(true)
-    # #both boards must show updated info H, M,X with player board still showing ships
   end
 
 #Winner once a someone wins the computer must recognise who won.
