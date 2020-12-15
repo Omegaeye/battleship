@@ -73,23 +73,22 @@ class Game
       puts "Your shot on #{shot} was a miss."
     elsif @cpu_board.cells[shot].ship_destroyed
       "X"
-
     elsif @cpu_board.cells[shot].ship_damage
       "H"
       puts "Your shot on #{shot} was a hit."
     else
        "."
     end
-
   end
 
   def player_shoot
     shot = gets.chomp.upcase
-    until @cpu_board.valid_coordinate?(shot) && @cpu_board.cells[shot].fired_upon? == false
-      @message.invalid_shot
-      player_shoot
+     if @cpu_board.valid_coordinate?(shot.strip) == true
+       player_shoot
+     else @cpu_board.valid_coordinate?(shot.strip) == false
+       @message.invalid_shot
+       player_shot_logic(shot)
     end
-    player_shot_logic(shot)
   end
 
   def turn
@@ -99,7 +98,7 @@ class Game
     puts @player_board.render(true)
     @message.player_shot
     player_shoot
-    
+
     # computer_shoot #must be random_cells
     # @message.shot_fired_player #must tell what location was shot and if it is a Hit, Miss, or ship sunk
     # @message.shot_fired_computer  #must tell what location was shot and if it is a Hit, Miss, or ship sunk
