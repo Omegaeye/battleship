@@ -66,7 +66,20 @@ class Game
     end
   end
 
-  def player_shot_logic
+  def player_shot_logic(shot)
+    @cpu_board.cells[shot].fire_upon
+     if @cpu_board.cells[shot].shot_miss
+      "M"
+      puts "Your shot on #{shot} was a miss."
+    elsif @cpu_board.cells[shot].ship_destroyed
+      "X"
+
+    elsif @cpu_board.cells[shot].ship_damage
+      "H"
+      puts "Your shot on #{shot} was a hit."
+    else
+       "."
+    end
 
   end
 
@@ -76,7 +89,7 @@ class Game
       @message.invalid_shot
       player_shoot
     end
-    player_shot_logic
+    player_shot_logic(shot)
   end
 
   def turn
@@ -86,15 +99,15 @@ class Game
     puts @player_board.render(true)
     @message.player_shot
     player_shoot
-    @message.invalid_shot #if shot is not a valid coordinate
-    computer_shoot #must be random_cells
-    @message.shot_fired_player #must tell what location was shot and if it is a Hit, Miss, or ship sunk
-    @message.shot_fired_computer  #must tell what location was shot and if it is a Hit, Miss, or ship sunk
-    @message.display_computer_board
-    puts @cpu_board.render
-    @message.display_player_board
-    puts @player_board.render(true)
-    #both boards must show updated info H, M,X with player board still showing ships
+    
+    # computer_shoot #must be random_cells
+    # @message.shot_fired_player #must tell what location was shot and if it is a Hit, Miss, or ship sunk
+    # @message.shot_fired_computer  #must tell what location was shot and if it is a Hit, Miss, or ship sunk
+    # @message.display_computer_board
+    # puts @cpu_board.render
+    # @message.display_player_board
+    # puts @player_board.render(true)
+    # #both boards must show updated info H, M,X with player board still showing ships
   end
 
 #Winner once a someone wins the computer must recognise who won.
