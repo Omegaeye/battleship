@@ -1,3 +1,8 @@
+require './lib/ship'
+require './lib/cell'
+require './lib/board'
+
+
 class Messages
 
   def welcome
@@ -52,7 +57,7 @@ class Messages
   #computer shoots, must be random and cannot repeat
 
   def shot_fired_player
-    puts "Your shot on #{[]} was a #{[]} "
+    puts "Your shot on #{@cpu_board.player_shoot} was a #{[]} "
   end
 
   def shot_fired_computer
