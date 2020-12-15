@@ -84,10 +84,10 @@ class Game
   def player_shoot
     shot = gets.chomp.upcase
      if @cpu_board.valid_coordinate?(shot.strip) == true
-       player_shoot
-     else @cpu_board.valid_coordinate?(shot.strip) == false
-       @message.invalid_shot
        player_shot_logic(shot)
+     else
+       @message.invalid_shot
+       player_shoot
     end
   end
 
