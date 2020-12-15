@@ -117,13 +117,13 @@ class Game
 
   def player_wins
     if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
-    @message.player_wins
+     @message.player_wins
    end
   end
 
   def cpu_wins
     if @player_cruiser.sunk? && @player_submarine.sunk?
-     @message.computer_wins
+     @message.computer_win
     end
   end
 
@@ -134,12 +134,8 @@ class Game
     puts @player_board.render(true)
     @message.player_shot
     player_shoot
-    player_wins
-    @message.display_computer_board
-    puts @cpu_board.render
-    @message.display_player_board
-    puts @player_board.render(true)
     cpu_shot
+    player_wins
     cpu_wins
     turn
 
