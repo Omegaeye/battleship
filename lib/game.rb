@@ -25,7 +25,7 @@ class Game
   end
 
   def cpu_random_coord(ship)
-     @cpu_board.cells.keys.sample(ship.length)
+      @cpu_board.cells.keys.sample(ship.length)
   end
 
   def cpu_random_coordinates(ship)
@@ -93,7 +93,7 @@ class Game
   end
 
   def cpu_shot
-    shot2 = @player_board.cells.keys.sample(1).join
+      shot2 = @player_board.cells.keys.sample(1).join
     if @player_board.valid_coordinate?(shot2) == true
       cpu_shot_logic(shot2)
     end
@@ -117,51 +117,50 @@ class Game
 
   def player_wins
     if @cpu_cruiser.sunk? && @cpu_sub.sunk?
-      @message.player_wins
-      initialize
-      start
-   end
+       @message.player_wins
+       initialize
+       start
+    end
   end
 
   def cpu_wins
     if @player_cruiser.sunk?  && @player_sub.sunk?
-     @message.computer_wins
-     initialize
-     start
+       @message.computer_wins
+       initialize
+       start
     end
   end
 
   def turn
-    @message.display_computer_board
-    puts @cpu_board.render
-    @message.display_player_board
-    puts @player_board.render(true)
-    @message.player_shot
-    player_shoot
-    player_wins
-    cpu_shot
-    cpu_wins
-    turn
-
+       @message.display_computer_board
+       puts @cpu_board.render
+       @message.display_player_board
+       puts @player_board.render(true)
+       @message.player_shot
+       player_shoot
+       player_wins
+       cpu_shot
+       cpu_wins
+       turn
   end
 
   def start
-    @message.welcome
-      user_prompt = gets.chomp.downcase
+       @message.welcome
+       user_prompt = gets.chomp.downcase
     if user_prompt == "p"
-        place_cpu_ships
-        @message.computer_place_ships
-        @message.user_place_ships
-        @message.cruiser_coordinates
-        player_place_cruiser
-        @message.submarine_coordinates
-        player_place_sub
-        turn
+       place_cpu_ships
+       @message.computer_place_ships
+       @message.user_place_ships
+       @message.cruiser_coordinates
+       player_place_cruiser
+       @message.submarine_coordinates
+       player_place_sub
+       turn
     elsif user_prompt == "q"
-        @message.player_quits
-        exit
+       @message.player_quits
+       exit
     else
-        @message.invalid_coordinates
+       @message.invalid_coordinates
     end
   end
 
