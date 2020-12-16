@@ -39,7 +39,7 @@ class BoardTest < Minitest::Test
     submarine = Ship.new("Submarine", 2)
 
     assert_equal false,  board.all_numbers_alike(["A1", "A2", "A4"])
-    assert_equal true,  board.all_numbers_alike(["A1", "C1"])
+    assert_equal true,   board.all_numbers_alike(["A1", "C1"])
     assert_equal false,  board.all_numbers_alike(["A3", "A2", "A1"])
   end
 
@@ -49,7 +49,7 @@ class BoardTest < Minitest::Test
     submarine = Ship.new("Submarine", 2)
 
     assert_equal true,  board.all_letters_alike(["A1", "A2", "A4"])
-    assert_equal false,  board.all_letters_alike(["A1", "C1"])
+    assert_equal false, board.all_letters_alike(["A1", "C1"])
     assert_equal true,  board.all_letters_alike(["A3", "A2", "A1"])
   end
 
