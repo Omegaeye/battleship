@@ -72,10 +72,10 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    cell_empty(coordinates)                    &&
     consecutive_placement(coordinates)         &&
     ship.length == coordinates.length          &&
-    ship_coordinates_valid?(coordinates)
+    ship_coordinates_valid?(coordinates)       &&
+    cell_empty(coordinates)                    
   end
 
   def place(ship, coordinates)

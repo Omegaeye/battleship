@@ -106,7 +106,7 @@ class Game
       puts "My shot on #{shot2} was a miss."
     elsif @player_board.cells[shot2].ship_destroyed
       "X"
-       puts "My shot on #{shot} has destroyed your ship."
+       puts "My shot on #{shot2} has destroyed your ship."
     elsif @player_board.cells[shot2].ship_damage
       "H"
       puts "My shot on #{shot2} was a hit."
@@ -116,14 +116,18 @@ class Game
   end
 
   def player_wins
-    if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
-     @message.player_wins
+    if @cpu_cruiser.sunk? && @cpu_sub.sunk?
+      @message.player_wins
+      initialize
+      start
    end
   end
 
   def cpu_wins
-    if @player_cruiser.sunk? && @player_submarine.sunk?
-     @message.computer_win
+    if @player_cruiser.sunk?  && @player_sub.sunk?
+     @message.computer_wins
+     initialize
+     start
     end
   end
 
@@ -134,8 +138,8 @@ class Game
     puts @player_board.render(true)
     @message.player_shot
     player_shoot
-    cpu_shot
     player_wins
+    cpu_shot
     cpu_wins
     turn
 
