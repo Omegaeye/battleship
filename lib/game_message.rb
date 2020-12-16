@@ -2,7 +2,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 
-
 class Messages
 
   def welcome
@@ -12,10 +11,10 @@ class Messages
   def player_quits
     puts "You have quit the game. Goodbye"
   end
+
   def computer_place_ships
     puts "I have laid out my ships on the the battlefield."
   end
-
 
   def user_place_ships
     puts "You now need to lay out your two ships.\n The Cruiser is three units long.\n The Submarine is two units long"
@@ -25,22 +24,19 @@ class Messages
     puts "Enter the squares for Cruiser (3 spaces):"
   end
 
-  # def display_board_with_cruiser
-  # end
-
   def submarine_coordinates
     puts "Enter the squares for Submarine (2 spaces):"
   end
 
   def invalid_coordinates
-    puts "Those are invlaid coordinates on the battlefield. Please try again:"
+    puts "Those are invalid coordinates on the battlefield. Please try again:"
   end
 
   def display_computer_board
     puts "========= Computer Board ========="
   end
 
-   def display_player_board #(render= true)
+   def display_player_board
     puts "========= Player Board ========="
   end
 
@@ -54,16 +50,6 @@ class Messages
     print ">"
   end
 
-  #computer shoots, must be random and cannot repeat
-
-  def shot_fired_player
-    puts "Your shot on #{@cpu_board.player_shoot} was a #{[]} "
-  end
-
-  def shot_fired_computer
-    puts "My shot on #{[]} was a #{[]}"
-  end
-
   def player_wins
     puts "You have emerged VICTORIOUS!"
   end
@@ -71,7 +57,5 @@ class Messages
   def computer_wins
     puts "You may have lost the battle but the war is not over."
   end
-
-
 
 end

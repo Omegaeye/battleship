@@ -7,16 +7,19 @@ class CellTest < Minitest::Test
 
   def test_it_exist
     cell = Cell.new("B4")
+     cx
     assert_instance_of Cell, cell
   end
 
   def test_it_has_attributes
     cell = Cell.new("B4")
+
     assert_equal "B4", cell.coordinate
   end
 
   def test_ship_exists
     cell = Cell.new("B4")
+
     assert_nil nil,  cell.ship
   end
 
@@ -61,7 +64,6 @@ class CellTest < Minitest::Test
     assert_equal "M", cell_1.render
     cell_2  = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
-
     cell_2.place_ship(cruiser)
     assert_equal ".", cell_2.render
     assert_equal "S", cell_2.render(true)

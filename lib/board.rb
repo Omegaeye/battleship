@@ -27,8 +27,7 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate) && !@cells[coordinate].fired_upon?
   end
-
-
+  
   def coordinates_equal_length(ship, coordinates)
     ship.length == coordinates.length
   end
@@ -75,7 +74,7 @@ class Board
     consecutive_placement(coordinates)         &&
     ship.length == coordinates.length          &&
     ship_coordinates_valid?(coordinates)       &&
-    cell_empty(coordinates)                    
+    cell_empty(coordinates)
   end
 
   def place(ship, coordinates)

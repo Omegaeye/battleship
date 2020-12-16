@@ -145,11 +145,6 @@ class Game
 
   end
 
-#Winner once a someone wins the computer must recognise who won.
-# if player wins @message.player_wins
-#else compuer wins @message.computer_wins
-#then return to @message.welcome
-
   def start
     @message.welcome
       user_prompt = gets.chomp.downcase
