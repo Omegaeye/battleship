@@ -15,21 +15,21 @@ class Game
 
 
   def initialize
-     @player_board   = Board.new
-     @cpu_board      = Board.new
-     @player_cruiser = Ship.new("Cruiser", 3)
-     @player_sub     = Ship.new("Submarine", 2)
-     @cpu_cruiser    = Ship.new("Cruiser", 3)
-     @cpu_sub        = Ship.new("Submarine", 2)
-     @message        = Messages.new
+    @player_board   = Board.new
+    @cpu_board      = Board.new
+    @player_cruiser = Ship.new("Cruiser", 3)
+    @player_sub     = Ship.new("Submarine", 2)
+    @cpu_cruiser    = Ship.new("Cruiser", 3)
+    @cpu_sub        = Ship.new("Submarine", 2)
+    @message        = Messages.new
   end
 
   def cpu_random_coord(ship)
-      @cpu_board.cells.keys.sample(ship.length)
+    @cpu_board.cells.keys.sample(ship.length)
   end
 
   def cpu_random_coordinates(ship)
-      random_cells = []
+    random_cells = []
     until @cpu_board.valid_placement?(ship, random_cells) do
       random_cells = cpu_random_coord(ship)
     end
@@ -37,15 +37,15 @@ class Game
   end
 
   def place_cpu_ships
-      cpu_random_coordinates(@cpu_cruiser)
-      @cpu_board.place(@cpu_cruiser, cpu_random_coordinates(@cpu_cruiser))
-      cpu_random_coordinates(@cpu_sub)
-      @cpu_board.place(@cpu_sub, cpu_random_coordinates(@cpu_sub))
+    cpu_random_coordinates(@cpu_cruiser)
+    @cpu_board.place(@cpu_cruiser, cpu_random_coordinates(@cpu_cruiser))
+    cpu_random_coordinates(@cpu_sub)
+    @cpu_board.place(@cpu_sub, cpu_random_coordinates(@cpu_sub))
   end
 
   def player_place_cruiser
-      puts @player_board.render(true)
-      user_prompt = gets.chomp.upcase.split(" ")
+    puts @player_board.render(true)
+    user_prompt = gets.chomp.upcase.split(" ")
     if @player_board.valid_placement?(@player_cruiser, user_prompt)
       @player_board.place(@player_cruiser, user_prompt)
     else
@@ -55,8 +55,8 @@ class Game
   end
 
   def player_place_sub
-      puts @player_board.render(true)
-      user_prompt = gets.chomp.upcase.split(" ")
+    puts @player_board.render(true)
+    user_prompt = gets.chomp.upcase.split(" ")
     if @player_board.valid_placement?(@player_sub, user_prompt)
       @player_board.place(@player_sub, user_prompt)
       puts @player_board.render(true)
@@ -93,7 +93,7 @@ class Game
   end
 
   def cpu_shot
-      shot2 = @player_board.cells.keys.sample(1).join
+    shot2 = @player_board.cells.keys.sample(1).join
     if @player_board.valid_coordinate?(shot2) == true
       cpu_shot_logic(shot2)
     else
@@ -103,7 +103,7 @@ class Game
 
   def cpu_shot_logic(shot2)
     @player_board.cells[shot2].fire_upon
-     if @player_board.cells[shot2].shot_miss
+    if @player_board.cells[shot2].shot_miss
       "M"
       puts "My shot on #{shot2} was a miss."
     elsif @player_board.cells[shot2].ship_destroyed
@@ -119,31 +119,31 @@ class Game
 
   def player_wins
     if @cpu_cruiser.sunk? && @cpu_sub.sunk?
-       @message.player_wins
-       initialize
-       start
+      @message.player_wins
+      initialize
+      start
     end
   end
 
   def cpu_wins
     if @player_cruiser.sunk?  && @player_sub.sunk?
-       @message.computer_wins
-       initialize
-       start
+      @message.computer_wins
+      initialize
+      start
     end
   end
 
   def turn
-       @message.display_computer_board
-       puts @cpu_board.render
-       @message.display_player_board
-       puts @player_board.render(true)
-       @message.player_shot
-       player_shoot
-       player_wins
-       cpu_shot
-       cpu_wins
-       turn
+    @message.display_computer_board
+    puts @cpu_board.render
+    @message.display_player_board
+    puts @player_board.render(true)
+    @message.player_shot
+    player_shoot
+    player_wins
+    cpu_shot
+    cpu_wins
+    turn
   end
 
   def start

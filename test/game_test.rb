@@ -28,8 +28,5 @@ class GameTest < Minitest::Test
     cpu_board = Board.new
     cruiser   = Ship.new("Cruiser", 3)
     sub       = Ship.new("Submarine", 2)
-    game.start
-
-
   end
 end
