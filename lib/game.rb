@@ -96,6 +96,8 @@ class Game
       shot2 = @player_board.cells.keys.sample(1).join
     if @player_board.valid_coordinate?(shot2) == true
       cpu_shot_logic(shot2)
+    else
+      cpu_shot
     end
   end
 
